@@ -1,3 +1,0 @@
-/home/marc/docs/host/graphics/uebung02/src/CMakeFiles/rebuild_cache.dir
-/home/marc/docs/host/graphics/uebung02/src/CMakeFiles/teapot.dir
-/home/marc/docs/host/graphics/uebung02/src/CMakeFiles/edit_cache.dir
