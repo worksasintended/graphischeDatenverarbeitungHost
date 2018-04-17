@@ -77,7 +77,7 @@ void FlatScanConvertTriangle(ImagePoint P1, ImagePoint P2, ImagePoint P3, float 
 	}
 
 	// Fuelle Sub-Dreick zwischen P1.y und P2.y 
-	for (ScanLine=(int)P1.y; ScanLine<P2.y; ScanLine++ ) {
+	for (ScanLine=(int)P1.y; ScanLine<(int)P2.y; ScanLine++ ) {
 	  
 	  // Fuelle ScanLine von Start.x bis Ende.x mit gray
 	  FlatDrawScanLine(Start.x, Ende.x, ScanLine, gray);
@@ -97,7 +97,7 @@ void FlatScanConvertTriangle(ImagePoint P1, ImagePoint P2, ImagePoint P3, float 
 		//Ende.dx = (float)(P3.x - Ende.x) / float( P3.y - P1.y  );
 
 
-		for ( ScanLine = (int)P2.y; ScanLine<=P3.y; ScanLine++) {
+		for ( ScanLine = (int)P2.y; ScanLine<(int)P3.y; ScanLine++) {
 		  // Fuelle ScanLine von Start.x bis Ende.x mit gray
 		  FlatDrawScanLine(Start.x, Ende.x, ScanLine, gray);
 	 

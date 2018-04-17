@@ -64,19 +64,23 @@ void GouraudDrawScanLine (int xl, int xr, int y, float il, float ir)
     if (xl > xr)
     {
 		x = xl; xl = xr; xr = x;
-//		...
+		//swap intensities corresponding to the points
+		i = il; il=ir; ir= i;
     }
     
     /* Lineare Interpolation der Intensitaeten */
     if (xl != xr)
     {
-//		i = ...
-//		di = ...
+		//start with intensity from xl, as xl<xr
+		i = il;
+		// linear intensity interpolation
+	 	di = (float)(ir-il)/(float)(xr-xl) ;
 
 		for (x = xl; x <= xr; x++)
 		{
 			SetPoint(x, y, i);
-//			...
+			// il + (xr - xl) di = ir
+			i += di;
 		}
     }
     else
@@ -104,37 +108,38 @@ void GouraudScanConvertTriangle(GouraudVertex P1, GouraudVertex P2, GouraudVerte
 	/* Der ScanPoint `Start' interpoliert zunaechst einmal zwischen `P1'
 	  und `P2'. Berechne den Anfangwert fuer Start (x und i)*/
 	Start.x = (float)P1.x;
-//	Start.i = ...
+	Start.i = (float)P1.i; 
 	Start.dx = 0;
-//	Start.di = ...
+	Start.di = 0;
 	if  (P2.y > P1.y)
 	{
 		Start.dx = (float)(P2.x - P1.x)/(float)(P2.y - P1.y); // Offset
-//		Start.di = ...
+		Start.di = (float)(P2.i-P1.i)/(float)(P2.y-P1.y);
 	}
 
 	/* Der ScanPoint `Ende' interpoliert zwischen `P1' und `P3'. 
 	  Berechne den Anfangswert fuer Ende (x und i)*/
 	Ende.x = (float)P1.x;
-//	Ende.i = ...
+	Ende.i = (float)P1.i;
 	Ende.dx = 0;
-//	Ende.di = ...
+	Ende.di = 0;
 	if  (P3.y > P1.y)
 	{
 		Ende.dx = (float)(P3.x - P1.x)/(float)(P3.y - P1.y); // Offset
-//		Ende.di = ...
+		Ende.di = (float)(P3.i - P1.i)/(float)(P3.y - P1.y);
 	}
 
-/* //Kommentar entfernen
 	// Fuelle Sub-Dreick zwischen P1.y und P2.y 
-	for (ScanLine ... ) {
+	for (ScanLine=(int)P1.y; ScanLine<P2.y; ScanLine++) {
 		// Fuelle ScanLine von Start.x bis Ende.x
-		...
+		GouraudDrawScanLine(Start.x, Ende.x, ScanLine,  Start.i, Ende.i);
 		
         // Berechne Start und Ende fuer naechste ScanLine
-		...
+		Start.x += Start.dx;
+	        Ende.x += Ende.dx;
+		Start.i += Start.di;
+		Ende.i += Ende.di;	
 	}
-*/ // Kommentar entfernen
 
 	if  (P3.y > P2.y)
 	{
@@ -142,19 +147,17 @@ void GouraudScanConvertTriangle(GouraudVertex P1, GouraudVertex P2, GouraudVerte
 		 interpolieren. Berechne Start.x und Start.i fuer die naechste ScanLine 
 		 sowie Start.dx. imd Start.di */
 		Start.dx = (float)(P3.x - P2.x)/(float)(P3.y - P2.y) ;
-//		Start.x  = ...
-//		Start.di = ...
-//		Start.i  = ...
+		Start.x  = P2.x;
+		Start.di = (float)(P3.i-P2.i)/(float)(P3.y-P2.y);
+		Start.i  = P2.i;
 
-/* //Kommentar entfernen
-		for (ScanLine ... ) {
-			// Fuelle ScanLine von Start.x bis Ende.x
-			...
-	 
-			// Berechne Start und Ende fuer naechste ScanLine
-			...
+		for (ScanLine = (int)P2.y; ScanLine < P3.y; ScanLine++ ) {
+			GouraudDrawScanLine(Start.x, Ende.x, ScanLine, Start.i, Ende.i);
+			Start.x += Start.dx;
+			Ende.x += Ende.dx;
+			Start.i += Start.di;
+			Ende.i += Ende.di;
 		}
-*/ // Kommentar entfernen
 
 	}
 }
@@ -168,15 +171,15 @@ void Gouraudshading(Triangle3dType Triangle3d, Triangle2dType Triangle2d)
 	/* Zeichne ausgefuelltes Dreieck */
 	P1.x = Triangle2d.p1.x;
 	P1.y = Triangle2d.p1.y;
-//	P1.i = Intensitaet( ... );
+	P1.i = Intensitaet(Triangle3d.p1, Triangle3d.n1 );
 		
 	P2.x = Triangle2d.p2.x;
 	P2.y = Triangle2d.p2.y;
-//	P2.i = Intensitaet( ... );
+	P2.i = Intensitaet(Triangle3d.p2, Triangle3d.n2);
 
 	P3.x = Triangle2d.p3.x;
 	P3.y = Triangle2d.p3.y;
-//	P3.i = Intensitaet( ... );
+	P3.i = Intensitaet( Triangle3d.p3, Triangle3d.n3 );
 			
 	GouraudScanConvertTriangle(P1, P2, P3);
 
