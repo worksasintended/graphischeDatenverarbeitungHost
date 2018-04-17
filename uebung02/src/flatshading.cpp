@@ -76,33 +76,35 @@ void FlatScanConvertTriangle(ImagePoint P1, ImagePoint P2, ImagePoint P3, float 
 		Ende.dx  =  (float)( P3.x - P1.x ) / (float)( P3.y - P1.y ) ;
 	}
 
-/* //Kommentar entfernen
 	// Fuelle Sub-Dreick zwischen P1.y und P2.y 
-	for (ScanLine ... ) {
-		// Fuelle ScanLine von Start.x bis Ende.x mit gray
-		...
+	for (ScanLine=(int)P1.y; ScanLine<P2.y; ScanLine++ ) {
+	  
+	  // Fuelle ScanLine von Start.x bis Ende.x mit gray
+	  FlatDrawScanLine(Start.x, Ende.x, ScanLine, gray);
 		
-        // Berechne Start.x und Ende.x fuer naechste ScanLine
-		...
+	  // Berechne Start.x und Ende.x fuer naechste ScanLine
+	    Start.x += Start.dx;
+	    Ende.x += Ende.dx;
 	}
-*/ // Kommentar entfernen
 
 	if  (P3.y > P2.y) { 
 		// Der ScanPoint `Start' soll jetzt zwischen `P2' und `P3' interpolieren.
 		// Berechne Start.x fuer die naechste ScanLine sowie Start.dx. 
 		Start.dx  =  (float)( P3.x - P2.x ) / (float)( P3.y - P2.y ) ;
-		// Start.x   = ... ;
+		Start.x = (float)P2.x;
+		// Ende.dx ändert sich nicht
+		// P1.y entspricht der y-Koordinate des neuen Punktes
+		//Ende.dx = (float)(P3.x - Ende.x) / float( P3.y - P1.y  );
 
-/* //Kommentar entfernen
-		for (ScanLine ... ) {
-			// Fuelle ScanLine von Start.x bis Ende.x mit gray
-			...
+
+		for ( ScanLine = (int)P2.y; ScanLine<=P3.y; ScanLine++) {
+		  // Fuelle ScanLine von Start.x bis Ende.x mit gray
+		  FlatDrawScanLine(Start.x, Ende.x, ScanLine, gray);
 	 
-			// Berechne Start.x und Ende.x fuer naechste ScanLine
-			...
+		  // Berechne Start.x und Ende.x fuer naechste ScanLine
+		  Start.x += Start.dx;
+		  Ende.x += Ende.dx;	  
 		}
-*/ // Kommentar entfernen
-
 	}
 }
 
