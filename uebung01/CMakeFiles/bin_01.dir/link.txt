@@ -1,0 +1,1 @@
+/usr/bin/cc -g  -rdynamic CMakeFiles/bin_01.dir/01.c.o  -o bin/bin_01 -lGL -lGLU -lglut -lXmu -lXi 

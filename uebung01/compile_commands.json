@@ -1,0 +1,17 @@
+[
+{
+  "directory": "/home/marc/docs/host/graphics/uebung01",
+  "command": "/usr/bin/cc   -g   -o CMakeFiles/bin_01.dir/01.c.o   -c /home/marc/docs/host/graphics/uebung01/01.c",
+  "file": "/home/marc/docs/host/graphics/uebung01/01.c"
+},
+{
+  "directory": "/home/marc/docs/host/graphics/uebung01",
+  "command": "/usr/bin/cc   -g   -o CMakeFiles/bin_03.dir/03.c.o   -c /home/marc/docs/host/graphics/uebung01/03.c",
+  "file": "/home/marc/docs/host/graphics/uebung01/03.c"
+},
+{
+  "directory": "/home/marc/docs/host/graphics/uebung01",
+  "command": "/usr/bin/cc   -g   -o CMakeFiles/bin_02.dir/02.c.o   -c /home/marc/docs/host/graphics/uebung01/02.c",
+  "file": "/home/marc/docs/host/graphics/uebung01/02.c"
+}
+]

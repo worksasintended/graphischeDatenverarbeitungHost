@@ -1,0 +1,5 @@
+/home/marc/docs/host/graphics/uebung01/CMakeFiles/rebuild_cache.dir
+/home/marc/docs/host/graphics/uebung01/CMakeFiles/edit_cache.dir
+/home/marc/docs/host/graphics/uebung01/CMakeFiles/bin_01.dir
+/home/marc/docs/host/graphics/uebung01/CMakeFiles/bin_03.dir
+/home/marc/docs/host/graphics/uebung01/CMakeFiles/bin_02.dir
