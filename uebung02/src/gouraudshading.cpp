@@ -17,18 +17,23 @@
 
 float Intensitaet(ObjectPoint P, Vector N)
 {
-    double I_ambient, I_diffuse, CosNL;
-    Vector LightDir;
+    double I_ambient, I_diffuse, I_specular, CosNL, CosNA;
+    Vector LightDir, EyeView, Reflection;
     
     ObjectPoint LightSource = GetLight();       
-    
+    ObjectPoint AugPunkt = GetEye();
+    MakeVector(P, AugPunkt, &EyeView);
     MakeVector (P, LightSource, &LightDir);
     Normalize (&LightDir);
+    Normalize (&EyeView);
+    Normalize (&Reflection);
     CosNL = SkalProd (N, LightDir);
+    CosNA = SkalProd(N, EyeView);
     if (CosNL < 0)  CosNL = 0;
+    I_specular = .3* pow( cos(acos(CosNL-CosNA)), 2);
     I_ambient = 0.1;
-    I_diffuse = 0.9 * CosNL;
-    return  (float) (I_ambient + I_diffuse);
+    I_diffuse = 0.6 * CosNL; 
+    return  (float) (I_ambient + I_diffuse + I_specular);
 }
 
 
@@ -130,7 +135,7 @@ void GouraudScanConvertTriangle(GouraudVertex P1, GouraudVertex P2, GouraudVerte
 	}
 
 	// Fuelle Sub-Dreick zwischen P1.y und P2.y 
-	for (ScanLine=(int)P1.y; ScanLine<P2.y; ScanLine++) {
+	for (ScanLine=(int)P1.y; ScanLine<=P2.y; ScanLine++) {
 		// Fuelle ScanLine von Start.x bis Ende.x
 		GouraudDrawScanLine(Start.x, Ende.x, ScanLine,  Start.i, Ende.i);
 		
@@ -147,11 +152,11 @@ void GouraudScanConvertTriangle(GouraudVertex P1, GouraudVertex P2, GouraudVerte
 		 interpolieren. Berechne Start.x und Start.i fuer die naechste ScanLine 
 		 sowie Start.dx. imd Start.di */
 		Start.dx = (float)(P3.x - P2.x)/(float)(P3.y - P2.y) ;
-		Start.x  = P2.x;
+		Start.x  = P2.x+Start.dx;
 		Start.di = (float)(P3.i-P2.i)/(float)(P3.y-P2.y);
-		Start.i  = P2.i;
+		Start.i  = P2.i+Start.di;
 
-		for (ScanLine = (int)P2.y; ScanLine < P3.y; ScanLine++ ) {
+		for (ScanLine = (int)P2.y+1; ScanLine <= P3.y; ScanLine++ ) {
 			GouraudDrawScanLine(Start.x, Ende.x, ScanLine, Start.i, Ende.i);
 			Start.x += Start.dx;
 			Ende.x += Ende.dx;
