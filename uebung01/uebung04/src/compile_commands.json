@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/marc/docs/host/graphischeDatenverarbeitungHost/uebung04/src",
+  "command": "/usr/bin/c++      -march=native -g -Wall -pedantic -D_GLIBCXX_DEBUG -fsanitize=address -g -fno-omit-frame-pointer   -std=gnu++14 -o CMakeFiles/bin_view.dir/main.cpp.o -c /home/marc/docs/host/graphischeDatenverarbeitungHost/uebung04/src/main.cpp",
+  "file": "/home/marc/docs/host/graphischeDatenverarbeitungHost/uebung04/src/main.cpp"
+}
+]

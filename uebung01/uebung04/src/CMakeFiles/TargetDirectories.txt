@@ -1,0 +1,3 @@
+/home/marc/docs/host/graphischeDatenverarbeitungHost/uebung04/src/CMakeFiles/rebuild_cache.dir
+/home/marc/docs/host/graphischeDatenverarbeitungHost/uebung04/src/CMakeFiles/bin_view.dir
+/home/marc/docs/host/graphischeDatenverarbeitungHost/uebung04/src/CMakeFiles/edit_cache.dir
