@@ -1,1 +1,0 @@
-/usr/bin/c++    -march=native -g -Wall -pedantic -D_GLIBCXX_DEBUG -fsanitize=address -g -fno-omit-frame-pointer  -rdynamic CMakeFiles/bin_view.dir/main.cpp.o  -o /home/marc/docs/host/graphischeDatenverarbeitungHost/uebung04/bin/bin_view -lGL -lGLU -lglut -lXmu -lXi 
